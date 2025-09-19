@@ -1,0 +1,144 @@
+# Advanced Bug Bounty Hunter - Default Configuration
+# This file contains all configurable parameters for the security testing tool
+
+# Target Configuration
+target:
+  primary_url: "https://target.example.com"  # Main target URL
+  scope:
+    included_domains:
+      - ".target.example.com"  # Include all subdomains
+      - "api.target.com"       # Include API domain
+    excluded_paths:
+      - "/logout"              # Avoid logout endpoints
+      - "/admin/dangerous"     # Skip dangerous admin paths
+    ip_ranges:
+      - "192.168.1.0/24"       # Internal network range
+
+# Authentication Configuration
+authentication:
+  methods:
+    - type: "form"
+      login_url: "https://target.com/login"
+      credentials:
+        username: "testuser"
+        password: "testpass123"
+      mfa_token: ""  # Optional TOTP secret
+    
+    - type: "oauth2"
+      client_id: "client_id"
+      client_secret: "client_secret"
+      auth_url: "https://auth.provider.com"
+    
+    - type: "jwt"
+      token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."  # JWT token
+
+# Testing Strategy
+testing_strategy:
+  methodology: "adaptive"      # Options: adaptive, comprehensive, targeted, stealth
+  depth_level: 4               # 1-5 scale (surface to deep)
+  aggressiveness: "moderate"   # Options: passive, moderate, aggressive
+  time_budget: "4h"           # Maximum testing duration
+  
+  # Agent Configuration
+  agents:
+    enabled:
+      reconnaissance: true
+      authentication: true
+      authorization: true
+      injection: true
+      business_logic: true
+      client_side: true
+      infrastructure: true
+      api_security: true
+
+# Specific Testing Configuration
+configuration:
+  reconnaissance:
+    passive_intel: true
+    active_scanning: true
+    subdomain_bruteforce: true
+    technology_fingerprinting: true
+  
+  injection:
+    sql_injection:
+      databases: ["mysql", "postgresql", "mssql", "oracle"]
+      techniques: ["boolean", "time", "error", "union"]
+      payloads: "comprehensive"
+    
+    nosql_injection:
+      databases: ["mongodb", "couchdb", "redis"]
+    
+    command_injection:
+      operating_systems: ["linux", "windows", "macos"]
+
+# Performance Settings
+performance:
+  concurrent_agents: 8
+  request_rate: 10              # requests per second
+  timeout_settings:
+    request: 30                 # seconds
+    agent_task: 300            # seconds
+    total_scan: 14400          # 4 hours in seconds
+
+# LLM Configuration
+gemini:
+  api_key: "YOUR_GEMINI_API_KEY"  # Replace with your actual API key
+  model: "gemini-1.5-pro"
+  fallback_model: "gemini-1.0-pro"
+  rate_limit: 60                   # requests per minute
+
+# Stealth Configuration
+stealth:
+  enabled: false
+  user_agents:
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"
+  proxy_rotation: true
+  request_delays:
+    min: 0.5
+    max: 3.0
+
+# Output Configuration
+output:
+  formats: ["json", "html", "pdf", "markdown"]
+  directory: "./reports"
+  evidence_capture: true
+  video_recording: true
+
+# Notifications
+notifications:
+  critical_findings: true
+  webhooks:
+    - url: "https://your-webhook-url.com"
+      events: ["critical_vulnerability", "scan_complete"]
+
+# Compliance Settings
+compliance:
+  audit_logging: true
+  evidence_retention: "30d"
+  gdpr_compliant: true
+
+# Database Configuration
+database:
+  type: "postgresql"
+  host: "localhost"
+  port: 5432
+  name: "bbhunter"
+  username: "bbhunter"
+  password: "secure_password"
+
+# Cache Configuration
+cache:
+  type: "redis"
+  host: "localhost"
+  port: 6379
+  db: 0
+  ttl: 3600  # 1 hour
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "structured"  # structured, simple
+  file: "logs/bbhunter.log"
+  max_size: "100MB"
+  backup_count: 5
