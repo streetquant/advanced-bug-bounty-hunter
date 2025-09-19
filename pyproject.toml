@@ -1,0 +1,100 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "advanced-bug-bounty-hunter"
+version = "0.1.0"
+description = "AI-powered bug bounty hunting tool that emulates human security researcher behavior"
+authors = ["Shayan Banerjee <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "advanced_bug_bounty_hunter"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+# Browser Automation
+playwright = "^1.40.0"
+# Multi-Agent Framework
+langchain = "^0.1.0"
+langgraph = "^0.1.0"
+# LLM Integration
+google-generativeai = "^0.3.0"
+# Database & Caching
+psycopg2-binary = "^2.9.0"
+redis = "^5.0.0"
+sqlalchemy = "^2.0.0"
+# Task Queue
+celery = "^5.3.0"
+# HTTP & Networking
+aiohttp = {extras = ["speedups"], version = "^3.9.0"}
+requests = {extras = ["security"], version = "^2.31.0"}
+urllib3 = {extras = ["secure"], version = "^2.1.0"}
+dnspython = "^2.4.0"
+websocket-client = "^1.7.0"
+websockets = "^12.0"
+# HTML Parsing
+beautifulsoup4 = "^4.12.0"
+lxml = "^4.9.0"
+html5lib = "^1.1"
+# Security Tools
+pycryptodome = "^3.19.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+mitmproxy = "^10.1.0"
+scapy = "^2.5.0"
+paramiko = "^3.4.0"
+pwntools = "^4.11.0"
+# Reconnaissance
+censys = "^2.2.0"
+shodan = "^1.30.0"
+waybackpy = "^3.0.0"
+nuclei-python = "^0.1.0"
+wappalyzer-python = "^0.3.0"
+python-nmap = "^0.7.1"
+# Utilities
+faker = "^21.0.0"
+colorama = "^0.4.6"
+rich = "^13.7.0"
+typer = "^0.9.0"
+# Web Framework
+fastapi = "^0.104.0"
+uvicorn = {extras = ["standard"], version = "^0.24.0"}
+# Configuration
+pyyaml = "^6.0.1"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+# Logging
+structlog = "^23.2.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-asyncio = "^0.21.0"
+pytest-cov = "^4.1.0"
+black = "^23.12.0"
+isort = "^5.13.0"
+flake8 = "^6.1.0"
+mypy = "^1.8.0"
+pre-commit = "^3.6.0"
+
+[tool.poetry.scripts]
+bbhunter = "advanced_bug_bounty_hunter.cli:main"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=advanced_bug_bounty_hunter"
+testpaths = ["tests"]
+asyncio_mode = "auto"
